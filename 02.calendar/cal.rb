@@ -32,4 +32,3 @@ print "   " * first_date.wday
     print "#{date.day} "
   end
 }
-
