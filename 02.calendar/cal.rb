@@ -2,9 +2,12 @@
 require 'optparse'
 require 'date'
 
+# 今日の日付を取得
+today =Date.today
+
 # 引数を指定しない場合に、今月・今年を返す
-month = Date.today.month
-year = Date.today.year
+month = today.month
+year = today.year
 
 # 年・月を受け取り、表示したい月の最初の日と最後の日を取得する
 opt = OptionParser.new
@@ -18,18 +21,11 @@ puts "#{month}月 #{year}".center(20)
 puts "日 月 火 水 木 金 土"
 
 print "   " * first_date.wday
-(first_date..last_date).each {|date|
-  #日付が一桁のため日付の前にスペースを追加して表示し、土曜日なので改行
-  if  (date.day < 10 && date.wday) == 6
-    puts " #{date.day}"
-  #日付が一桁のため日付の前にもスペースを追加して表示
-  elsif date.day < 10
-    print " #{date.day} "
-  #土曜日なので改行
-  elsif date.wday == 6
-    puts date.day
-  else
-    print "#{date.day} "
-  end
-}
 
+(first_date..last_date).each do |date|
+  if date.saturday? == true
+    puts "#{date.day}".rjust(2)
+  else
+    print "#{date.day} ".rjust(3)
+  end
+end
