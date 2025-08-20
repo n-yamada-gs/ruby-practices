@@ -29,3 +29,4 @@ print "   " * first_date.wday
     print "#{date.day} ".rjust(3)
   end
 end
+
