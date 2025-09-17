@@ -1,30 +1,31 @@
 # frozen_string_literal: true
 
-files = Dir.children('.').sort
+files = Dir.children('.').reject { |x| x.start_with?('.') }.sort
 
-def how_many_rows(files)
-  (files.size / 3.0).ceil
+def row_length(files)
+  files.size.ceildiv(3)
 end
 
-def put_files(files, row_number)
-  files_any_rows = []
+def format_files(files, row_number)
+  file_matrix = []
   files.each_with_index do |file, index|
-    row = index % row_number
-    col = index / row_number
-    files_any_rows[row] ||= []
-    files_any_rows[row][col] = file
+    row = index.divmod(row_number)[1]
+    col = index.divmod(row_number)[0]
+    file_matrix[row] ||= []
+    file_matrix[row][col] = file
   end
-  files_any_rows
+  file_matrix
 end
 
-def output(files_any_rows)
-  files_any_rows.each do |row|
+def output(files, file_matrix)
+  max_length = files.max_by { |x| x.to_s.size }.size
+  file_matrix.each do |row|
     row.each do |col|
-      print "#{col.ljust(16)} "
+      print "#{col.ljust(max_length)} "
     end
-    puts ''
+    puts
   end
 end
 
-files_any_rows = put_files(files, how_many_rows(files))
-output(files_any_rows)
+file_matrix = format_files(files, row_length(files))
+output(files, file_matrix)
