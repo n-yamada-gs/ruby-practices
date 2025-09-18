@@ -11,8 +11,7 @@ end
 def format_files(files, row_number)
   file_matrix = []
   files.each_with_index do |file, index|
-    row = index.divmod(row_number)[1]
-    col = index.divmod(row_number)[0]
+    col, row = index.divmod(row_number)
     file_matrix[row] ||= []
     file_matrix[row][col] = file
   end
