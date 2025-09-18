@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
-# files = Dir.children('.').reject { |x| x.start_with?('.') }.sort
+COLUMNS = 3
+
 files = Dir.glob('*')
 
 def row_length(files)
-  files.size.ceildiv(3)
+  files.size.ceildiv(COLUMNS)
 end
 
 def format_files(files, row_number)
