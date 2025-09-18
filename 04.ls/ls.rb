@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-files = Dir.children('.').reject { |x| x.start_with?('.') }.sort
+# files = Dir.children('.').reject { |x| x.start_with?('.') }.sort
+files = Dir.glob('*')
 
 def row_length(files)
   files.size.ceildiv(3)
