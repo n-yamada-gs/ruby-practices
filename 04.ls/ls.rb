@@ -21,10 +21,7 @@ end
 def output(files, file_matrix)
   max_length = files.max_by { |x| x.to_s.size }.size
   file_matrix.each do |row|
-    row.each do |col|
-      print "#{col.ljust(max_length)} "
-    end
-    puts
+    puts row.map { it.ljust(max_length) }.join(' ')
   end
 end
 
