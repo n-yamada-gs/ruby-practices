@@ -3,6 +3,10 @@
 COLUMNS = 3
 
 files = Dir.glob('*')
+if files.empty?
+  puts ''
+  exit
+end
 
 def row_length(files)
   files.size.ceildiv(COLUMNS)
