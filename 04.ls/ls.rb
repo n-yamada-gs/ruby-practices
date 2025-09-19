@@ -4,7 +4,7 @@ COLUMNS = 3
 
 files = Dir.glob('*')
 if files.empty?
-  puts ''
+  puts
   exit
 end
 
