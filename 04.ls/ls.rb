@@ -2,7 +2,19 @@
 
 COLUMNS = 3
 
-files = Dir.glob('*')
+require 'optparse'
+opt = OptionParser.new
+
+params = {}
+opt.on('-a') { params[:a] = true }
+opt.parse!(ARGV)
+
+files = if params[:a]
+          Dir.glob('*', File::FNM_DOTMATCH)
+        else
+          Dir.glob('*')
+        end
+
 exit if files.empty?
 
 def row_length(files)
