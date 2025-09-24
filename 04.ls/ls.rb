@@ -9,11 +9,8 @@ params = {}
 opt.on('-a') { params[:a] = true }
 opt.parse!(ARGV)
 
-files = if params[:a]
-          Dir.glob('*', File::FNM_DOTMATCH)
-        else
-          Dir.glob('*')
-        end
+flags = params[:a] ? File::FNM_DOTMATCH : 0
+files = Dir.glob('*', flags)
 
 exit if files.empty?
 
