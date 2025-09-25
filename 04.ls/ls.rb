@@ -6,11 +6,11 @@ require 'optparse'
 opt = OptionParser.new
 
 params = {}
-opt.on('-a') { params[:a] = true }
+opt.on('-r') { params[:r] = true }
 opt.parse!(ARGV)
 
-flags = params[:a] ? File::FNM_DOTMATCH : 0
-files = Dir.glob('*', flags)
+files = Dir.glob('*')
+files.reverse! if params[:r]
 
 exit if files.empty?
 
