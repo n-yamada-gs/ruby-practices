@@ -11,7 +11,6 @@ opt.on('-l') { params[:l] = true }
 opt.parse!(ARGV)
 
 files = Dir.glob('*')
-exit if files.empty?
 
 def row_length(files)
   files.size.ceildiv(COLUMNS)
@@ -55,7 +54,6 @@ def long_format_data(files)
     }
   end
 end
-long_format_data = long_format_data(files)
 
 def max_hard_link_digit_length(long_format_data)
   long_format_data.map { |data| data[:nlink] }.max.to_s.size
@@ -120,6 +118,7 @@ def print_in_long_format(long_format_data, max_hard_link_digit_length, max_user_
 end
 
 if params[:l]
+  long_format_data = long_format_data(files)
   total_block_size = total(long_format_data)
   puts "合計 #{total_block_size}"
   max_hard_link_digit_length = max_hard_link_digit_length(long_format_data)
@@ -128,5 +127,6 @@ if params[:l]
   max_byte_size_digit_length = max_byte_size_digit_length(long_format_data)
   print_in_long_format(long_format_data, max_hard_link_digit_length, max_user_name_length, max_group_name_length, max_byte_size_digit_length)
 else
+  exit if files.empty?
   print_in_short_format(files)
 end
