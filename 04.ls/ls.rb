@@ -81,6 +81,10 @@ def convert_file_type(data)
   when 'file' then '-'
   when 'directory' then 'd'
   when 'link' then 'l'
+  when 'characterSpecial' then 'c'
+  when 'blockSpecial' then 'b'
+  when 'fifo' then 'p'
+  when 'socket' then 's'
   else '?'
   end
 end
