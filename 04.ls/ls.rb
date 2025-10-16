@@ -7,10 +7,10 @@ require 'etc'
 opt = OptionParser.new
 
 params = {}
+opt.on('-a') { params[:a] = true }
+opt.on('-r') { params[:r] = true }
 opt.on('-l') { params[:l] = true }
 opt.parse!(ARGV)
-
-files = Dir.glob('*')
 
 def row_length(files)
   files.size.ceildiv(COLUMNS)
@@ -120,6 +120,10 @@ def print_in_long_format(long_format_data, max_hard_link_digit_length, max_user_
     puts " #{data[:name]}"
   end
 end
+
+flags = params[:a] ? File::FNM_DOTMATCH : 0
+files = Dir.glob('*', flags)
+files.reverse! if params[:r]
 
 if params[:l]
   long_format_data = long_format_data(files)
